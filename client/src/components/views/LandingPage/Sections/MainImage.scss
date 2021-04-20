@@ -1,0 +1,17 @@
+.main {
+  &__movieBox {
+    position: absolute;
+    max-width: 500px;
+    bottom: 2rem;
+    margin-left: 2rem;
+  }
+
+  &__title {
+    color: white !important;
+  }
+
+  &__text {
+    color: white;
+    font-size: 1rem;
+  }
+}

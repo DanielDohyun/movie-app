@@ -1,29 +1,33 @@
 import React, {useEffect, useState} from 'react'
 import { FaCode } from "react-icons/fa";
-import { API_URL, API_KEY } from '../../Config';
-import './landing.scss';
+import { API_URL, API_KEY, IMAGE_URL } from '../../Config';
+import './Landing.scss';
 import { Typography, Row } from 'antd';
+import MainImage from './Sections/MainImage';
 const { Title } = Typography;
 
+
 function LandingPage() {
-    const [] = useState([]);
+    const [movies, setMovies] = useState([]);
 
     useEffect(() => {
         fetch(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res.results)
+                setMovies(res.results)
+            })
     
     }, [])
+
+    console.log(`${IMAGE_URL}w1280${movies[2]?.backdrop_path && movies[2].backdrop_path}`)
     
     return (
         <div className='landing'>
-            <div className='landing__mainImg'>
-
-            </div>
-            <div className="landing__movieBox">
-                <Title className='landing__title' level={2}>Title</Title>
-                <p className='landing__text' >Text</p>
-            </div>
+            {
+                movies[0] &&
+                <MainImage img={`${IMAGE_URL}w1280${movies[0].backdrop_path && movies[0].backdrop_path}`} title={movies[0].original_title} text={movies[0].overview} />
+            }
             
             <div className="landing__body">
                 <Title className='landing__bodyTitle' level={2}>Movies by latest</Title>
