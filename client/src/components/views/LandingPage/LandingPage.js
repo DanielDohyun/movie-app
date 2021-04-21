@@ -4,6 +4,7 @@ import { API_URL, API_KEY, IMAGE_URL } from '../../Config';
 import './Landing.scss';
 import { Typography, Row } from 'antd';
 import MainImage from './Sections/MainImage';
+import Cards from './Sections/Cards';
 const { Title } = Typography;
 
 
@@ -35,7 +36,16 @@ function LandingPage() {
                 
                 {/* grid cards */}
                 <Row gutter={[16, 16]}>
-
+                    {
+                        movies && movies.map((movie, i) => (
+                            <React.Fragment key={i}>
+                                <Cards
+                                    img={movie.poster_path && `${IMAGE_URL}w500${movie.poster_path}`}
+                                    movieId={movie.id}
+                                />
+                            </React.Fragment>
+                        ))
+                    }
                 </Row>
 
                 <br />

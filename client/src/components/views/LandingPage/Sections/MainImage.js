@@ -15,12 +15,10 @@ function MainImage(props) {
                 width: '100%',
                 position: 'relative'
             }}>
-
-            </div>
-
-            <div className="main__movieBox">
-                <Title className='main_title' level={2}>{props.title}</Title>
-                <p className='main__text' >{props.text}</p>
+                <div className="main__movieBox">
+                    <Title style={{color: 'white'}} className='main_title' level={2}>{props.title}</Title>
+                    <p className='main__text' >{props.text}</p>
+                </div>
             </div>
         </div>
     )
