@@ -7,21 +7,32 @@ import MainImage from './Sections/MainImage';
 import Cards from './Sections/Cards';
 const { Title } = Typography;
 
-
 function LandingPage() {
     const [movies, setMovies] = useState([]);
+    const [currentPage, SetCurrentPage] = useState(0);
 
     useEffect(() => {
-        fetch(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.results)
-                setMovies(res.results)
-            })
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        fetchMovies(endpoint);
     
     }, [])
 
-    console.log(`${IMAGE_URL}w1280${movies[2]?.backdrop_path && movies[2].backdrop_path}`)
+    const fetchMovies = (path) => {
+        fetch(path)
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res.results)
+                setMovies(res.results);
+                SetCurrentPage(res.page);
+            })
+    }
+
+    const handleClick = () => {
+        let endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage + 1}`;
+        fetchMovies(endpoint);
+    }
+
+    // console.log(`${IMAGE_URL}w1280${movies[2]?.backdrop_path && movies[2].backdrop_path}`)
     
     return (
         <div className='landing'>
@@ -51,7 +62,7 @@ function LandingPage() {
                 <br />
 
                 <div className="landing__btnContainer">
-                    <button className='landing__btn'>Load More</button>
+                    <button onClick={handleClick} className='landing__btn'>Load More</button>
                 </div>
 
             </div>
