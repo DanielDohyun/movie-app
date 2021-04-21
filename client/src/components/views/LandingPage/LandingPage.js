@@ -22,7 +22,7 @@ function LandingPage() {
             .then(res => res.json())
             .then(res => {
                 // console.log(res.results)
-                setMovies(res.results);
+                setMovies([...movies, ...res.results]);
                 SetCurrentPage(res.page);
             })
     }
@@ -32,8 +32,6 @@ function LandingPage() {
         fetchMovies(endpoint);
     }
 
-    // console.log(`${IMAGE_URL}w1280${movies[2]?.backdrop_path && movies[2].backdrop_path}`)
-    
     return (
         <div className='landing'>
             {
