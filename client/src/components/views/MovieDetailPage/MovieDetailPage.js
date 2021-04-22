@@ -8,6 +8,7 @@ import Cards from '../LandingPage/Sections/Cards';
 function MovieDetailPage(props) {
     const [movie, SetMovie] = useState([]);
     const [crews, SetCrews] = useState([]);
+    const [ActorToggle, SetActorToggle] = useState(false);
 
     useEffect(() => {
         const movieId = props.match.params.movieId 
@@ -25,6 +26,10 @@ function MovieDetailPage(props) {
                 })
         })
     }, [])
+
+    const handleClick = () => {
+        SetActorToggle(!ActorToggle);
+    }
 
     return (
         <div className='detail'>
@@ -51,25 +56,27 @@ function MovieDetailPage(props) {
                 </Descriptions>
 
                 <div className='detail__toggleContainer'>
-                    <Button>Toggle Actor View</Button>
+                    <Button onClick={handleClick}>Toggle Actor View</Button>
                 </div>
 
-                <Row gutter={[16, 16]}>
-                    {
-                        crews && crews.map((crew, i) => (
-                            <React.Fragment key={i}>
-                                {
-                                    crew.profile_path &&
-                                    <Cards
-                                        actor
-                                        img={`${IMAGE_URL}w500${crew.profile_path}`}
-                                    />
-                                }
-                            </React.Fragment>
-                        ))
-                    }
-                </Row>
-
+                {
+                    ActorToggle &&
+                        <Row gutter={[16, 16]}>
+                            {
+                                crews && crews.map((crew, i) => (
+                                    <React.Fragment key={i}>
+                                        {
+                                            crew.profile_path &&
+                                            <Cards
+                                                actor
+                                                img={`${IMAGE_URL}w500${crew.profile_path}`}
+                                            />
+                                        }
+                                    </React.Fragment>
+                                ))
+                            }
+                        </Row>
+                }
             </div>
         </div>
     )
