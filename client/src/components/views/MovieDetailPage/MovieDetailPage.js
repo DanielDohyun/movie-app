@@ -4,14 +4,15 @@ import MainImage from '../LandingPage/Sections/MainImage';
 import './MovieDetailPage.scss';
 import { Descriptions, Button, Row } from 'antd';
 import Cards from '../LandingPage/Sections/Cards';
+import Favorite from './Favorite/Favorite';
 
 function MovieDetailPage(props) {
     const [movie, SetMovie] = useState([]);
     const [crews, SetCrews] = useState([]);
     const [ActorToggle, SetActorToggle] = useState(false);
+    const movieId = props.match.params.movieId 
 
     useEffect(() => {
-        const movieId = props.match.params.movieId 
         fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US&page=1`)
             .then(res => res.json())
             .then(res => {
@@ -40,7 +41,11 @@ function MovieDetailPage(props) {
 
             <div className='detail__container'>
                 <div className='detail__btnContainer'>
-                    <Button>Add to Favorite</Button>
+                    <Favorite
+                        userFrom={localStorage.getItem('userId')}
+                        movieId={movieId}
+                        movieInfo={movie}
+                    />
                 </div>
 
                 {/* movie info table */}
