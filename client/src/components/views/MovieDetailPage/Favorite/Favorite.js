@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button } from 'antd';
 
 function Favorite(props) {
+    const [favoriteNumber, setFavoriteNumber] = useState(0);
 
     useEffect(() => {
 
@@ -18,7 +19,7 @@ function Favorite(props) {
         axios.post('/api/favorite/favoriteNumber', variable)
             .then(res => {
                 if (res.data.success) {
-                
+                    setFavoriteNumber(res.data.favoriteNumber);
                 } else {
                     alert('Failed to get the favoriteNumber')
             }
